@@ -7,29 +7,19 @@ import shutil
 
 from cfemodel import cfelocal
 
-nmc = 10000
+from parameters import (nmc, qvir_arr, tview_arr, surfGMC_arr, beta0_arr,
+                        surfg_arr, sigma_arr, Omega_arr, qT_arr,
+                        mass_density_arr, cs_arr
+                       )
+
 cfes = np.zeros(nmc)
 fbound = np.zeros(nmc)
 fcce = np.zeros(nmc)
 
-# Set up the parameters
-qvir_arr = 10**np.random.normal(np.log10(1.1),0.4/1.1/np.log(10),nmc)
-tview_arr = np.random.normal(0.74,0.16,nmc)
-surfGMC_arr = 10.**np.random.normal(np.log10(4.1e3),1.7e3/4.1e3/np.log(10.),nmc)
-beta0_arr = 10.**np.random.normal(np.log10(0.34),0.25/0.34/np.log(10.),nmc)
-surfg_arr = (10.**np.random.normal(np.log10(1.e3),.5e3/1.e3/np.log(10.),nmc)*u.Msun/u.pc**2).to(u.kg/u.m**2).value
-sigma_arr = 10.**np.random.normal(np.log10(10.e3),3.e3/10.e3/np.log(10.),nmc)
-Omega_arr = (np.random.normal(1.8,.25,nmc) * u.Myr).to(u.s).value
 
-mean_mass_density = (1e4 * 2.8 * u.Da / u.cm**3).to(u.kg/u.m**3)
-e_mass_density = 0.5 * mean_mass_density
-mass_density_arr = 10.**np.random.normal(np.log10(mean_mass_density.value),
-                                         e_mass_density.value/mean_mass_density.value/np.log(10),
-                                         nmc)
-mean_cs = (0.53*u.km/u.s).to(u.m/u.s)
-e_cs = (0.07*u.km/u.s).to(u.m/u.s)
 
-cs_arr = np.random.normal((mean_cs.value), (e_cs.value), nmc)
+# check to see what Mach numbers we're getting
+Mach_number_local = sigma_arr / cs_arr
 
 # BEGIN test code
 # Run the "test code"
