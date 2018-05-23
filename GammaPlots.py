@@ -77,7 +77,7 @@ ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfden
             markerfacecolor='k')
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.set_xlabel("$\Sigma_{SFR}$")
+ax.set_xlabel("$\Sigma_{SFR}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]")
 ax.set_ylabel("$\Gamma$")
 fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 
@@ -92,7 +92,7 @@ ax2.errorbar(sgrb2_distance.value, cfe_sb2,
              markerfacecolor='k')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
-ax2.set_xlabel("Distance (Mpc)")
+ax2.set_xlabel("Distance [Mpc]")
 ax2.set_ylabel("$\Gamma$")
 fig2.savefig('GammaVsDistance.pdf', bbox_inches='tight')
 
@@ -112,7 +112,7 @@ ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
-ax3.set_xlabel("$\Sigma_{gas}$")
+ax3.set_xlabel("$\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]")
 ax3.set_ylabel("$\Gamma$")
 fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
 
