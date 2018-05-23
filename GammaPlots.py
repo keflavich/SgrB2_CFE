@@ -32,7 +32,7 @@ galaxy_data = {'SMC': {'SigSFR':0.001, 'Gamma':4.2, 'eGamma':(0.3,0.2), 'SigGas'
                'SBS 0335-052E': {'SigSFR':0.95, 'Gamma':49, 'eGamma':(15,15), 'SigGas': np.nan, 'distance': 54.3*u.Mpc}, # Pustilnik+ 2000
                'NGC 2997': {'SigSFR':9.4e-3, 'Gamma':10, 'eGamma':(2.6,2.6), 'SigGas': np.nan, 'distance': 12.2*u.Mpc}, # Hess+ 2009
                'M83 center': {'SigSFR':0.54, 'Gamma':26.7, 'eGamma':(4,5.3), 'SigGas': np.nan, 'distance': 4.85*u.Mpc},
-               'M83 middle': {'SigSFR':0.013, 'Gamma':18.2, 'eGamma':(3,3), 'SigGas': 10**1.70, 'distance': 4.85*u.Mpc},
+               'M83 middle': {'SigSFR':0.013, 'Gamma':18.2, 'eGamma':(3,3), 'SigGas': np.nan, 'distance': 4.85*u.Mpc},
                'M83 outer': {'SigSFR':0.013, 'Gamma':5.6, 'eGamma':(0.6,0.6), 'SigGas': np.nan, 'distance': 4.85*u.Mpc},
                'NGC 6946': {'SigSFR':4.6e-3, 'Gamma':12.5, 'eGamma':(2.5,1.8), 'SigGas': 10**1.30, 'distance': 5.9*u.Mpc}, # Karachentsev+ 2000
               }
