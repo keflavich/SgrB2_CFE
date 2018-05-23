@@ -16,7 +16,7 @@ pl.rc('text', usetex=True)
 galaxy_data = {'SMC': {'SigSFR':0.001, 'Gamma':4.2, 'eGamma':(0.3,0.2), 'SigGas': 10**0.96, 'distance': 60*u.kpc},
                'LMC': {'SigSFR':1.52e-3, 'Gamma':5.8, 'eGamma':(0.5,0.5), 'SigGas': 10**1.04, 'distance': 50*u.kpc},
                'NGC 3256': {'SigSFR': 0.62, 'Gamma': 22.9, 'eGamma':(9.8, 7.3), 'SigGas': 10**2.1, 'distance': 19.8*u.Mpc},
-               'Solar Neighborhood': {'SigSFR': 0.012, 'Gamma': 7.0, 'eGamma': (3,7), 'SigGas': np.nan, 'distance':500*u.pc},
+               'Solar Neighborhood': {'SigSFR': 0.012, 'Gamma': 7.0, 'eGamma': (3,7), 'SigGas': 10**0.97, 'distance':500*u.pc},
                'NGC 45': {'SigSFR': 1.02e-3, 'Gamma': 5.2, 'eGamma':(0.3,0.3), 'SigGas': 10**0.67, 'distance': 6.8*u.Mpc},
                'NGC 1313': {'SigSFR':0.011, 'Gamma':3.2, 'eGamma':(0.2,0.2), 'SigGas': 10**0.88, 'distance': 4.15*u.Mpc},
                'NGC 4395': {'SigSFR':4.66e-3, 'Gamma':1, 'eGamma':(0.6,0.6), 'SigGas': 10**0.59, 'distance': 4.23*u.Mpc},
