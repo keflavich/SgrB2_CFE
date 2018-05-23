@@ -6,6 +6,9 @@ from astropy import units as u
 import shutil
 
 from cfemodel import cfelocal
+import imp
+import parameters
+imp.reload(parameters)
 
 from parameters import (nmc, qvir_arr, tview_arr, surfGMC_arr, beta0_arr,
                         surfg_arr, sigma_arr, Omega_arr, qT_arr,
@@ -59,10 +62,6 @@ for ii in ProgressBar(range(nmc)):
                                            cs_arr[ii])
     cfe_,fbound_,fcce_,fcce2 = rslt
 
-
-    surfg = surfg_arr[ii]
-    sigma = sigma_arr[ii]
-    Omega = Omega_arr[ii]
 
     cfes[ii] = cfe_*100
     fbound[ii] = fbound_*100

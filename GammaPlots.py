@@ -1,7 +1,7 @@
 import pylab as pl
 import numpy as np
 from astropy import units as u
-from astropy.table import Table
+from astropy.table import Table, Column
 
 # Adamo+ 2015 for most of the data
 # Kruijssen & Bastian 2016 for gas surface densities
@@ -28,6 +28,19 @@ galaxy_data = {'SMC': {'SigSFR':0.001, 'Gamma':4.2, 'eGamma':(0.3,0.2), 'SigGas'
                'M83 outer': {'SigSFR':0.013, 'Gamma':5.6, 'eGamma':(0.6,0.6), 'SigGas': np.nan, 'distance': 4.85*u.Mpc},
                'NGC 6946': {'SigSFR':4.6e-3, 'Gamma':12.5, 'eGamma':(2.5,1.8), 'SigGas': np.nan, 'distance': 5.9*u.Mpc}, # Karachentsev+ 2000
               }
+
+m83surf = Table.read('m83_profiles.csv')
+m83cfe = Table.read('m83_profiles_adamo.txt', format='ascii')
+
+surfs = []
+for row in m83cfe:
+    sel = (m83surf['Radius'] < row['outer']) & (m83surf['Radius'] > row['inner'])
+    avsurf = m83surf[sel]['Surfdens_H2'].mean()
+    surfs.append(avsurf)
+
+m83cfe.add_column(Column(name='surfdens_h2', data=surfs))
+
+
 
 
 siggas = np.array([x['SigGas'] for x in galaxy_data.values()])*u.M_sun/u.pc**2
@@ -93,6 +106,10 @@ ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
              yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
             markerfacecolor='orange')
+ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
+             m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
+             yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
+            )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
 ax3.set_xlabel("$\Sigma_{gas}$")
@@ -101,14 +118,53 @@ fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
 
 
 
-from cfemodel import cfelocal
+import imp
+from cfe_global_plots import sigma_arr, surfg_arr, fbound as global_fbound
+from cfe_local_plots import fbound as local_fbound
 
-from cfe_global_plots import sigma_arr, cfes, surfg_arr
+from matplotlib.colors import LinearSegmentedColormap
 
 from mpl_plot_templates import adaptive_param_plot
 
+bins = 10**np.mgrid[1.5:3.5:0.25, 0.5:2:0.1]
+bins = np.array([np.logspace(1.5,4,15), np.logspace(0.5,2,15)])
+
+cdict1 = {'red':   ((0.0, 1.0, 1.0),
+                   (1.0, 1.0, 1.0)),
+
+         'green': ((0.0, 0.0, 0.0),
+                   (1.0, 0.0, 0.0)),
+
+         'blue':  ((0.0, 0.0, 0.0),
+                   (1.0, 0.0, 0.0))
+        }
+cdictblue = {'red':   ((0.0, 0.0, 0.0),
+                   (1.0, 0.0, 0.0)),
+
+         'green': ((0.0, 0.0, 0.0),
+                   (1.0, 0.0, 0.0)),
+
+         'blue':  ((0.0, 0.0, 0.0),
+                   (1.0, 1.0, 1.0))
+        }
+cm_red = LinearSegmentedColormap('red', cdict1)
+cm_blue = LinearSegmentedColormap('blue', cdictblue)
+
 #ax3.plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value, cfes, 'k.', alpha=0.25, zorder=-5)
 rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
-                           cfes, bins=15, marker='none',
+                           global_fbound, marker='none',
                            #levels=[1-0.95,1-0.68])
+                            #colors=['b']*15,
+                            cmap=cm_red,
+                           bins=bins,
                           )
+rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
+                            local_fbound, marker='none',
+                            #levels=[1-0.95,1-0.68])
+                            #colors=['r']*15,
+                            cmap=cm_blue,
+                            linestyles='dotted',
+                           bins=bins,
+                           )
+ax3.set_ylim(1,100)
+ax3.set_xlim(0.5, 7e3)
