@@ -38,6 +38,9 @@ distance = u.Quantity([x['distance'] for x in galaxy_data.values()])
 
 sgrb2_data = Table.read('../tables/cluster_mass_estimates_cfe.csv')
 cfe_sb2 = sgrb2_data['$M_{inferred}$'][-1] / sgrb2_data['$M_{inferred}$'][-2] * 100
+cfe_sb2_low = 37
+cfe_sb2_high = 43
+cfe_sb2_yerr = np.array([[cfe_sb2-cfe_sb2_low, cfe_sb2_high-cfe_sb2]]).T
 sgrb2_surfdens = 1e3 * u.Msun/u.pc**2
 # this is not right...
 sgrb2_sfr_surfdens = (0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
@@ -56,12 +59,14 @@ ax = fig.gca()
 ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
             marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
 ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
+            yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
             markerfacecolor='k')
 ax.set_xscale('log')
 ax.set_yscale('log')
 ax.set_xlabel("$\Sigma_{SFR}$")
 ax.set_ylabel("$\Gamma$")
+fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 
 fig2 = pl.figure(2)
 fig2.clf()
@@ -69,12 +74,14 @@ ax2 = fig2.gca()
 ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_high]),
              marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
 ax2.errorbar(sgrb2_distance.value, cfe_sb2,
-            marker='o', linestyle='none', markeredgecolor='r',
-            markerfacecolor='k')
+             yerr=cfe_sb2_yerr,
+             marker='o', linestyle='none', markeredgecolor='r',
+             markerfacecolor='k')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
 ax2.set_xlabel("Distance (Mpc)")
 ax2.set_ylabel("$\Gamma$")
+fig2.savefig('GammaVsDistance.pdf', bbox_inches='tight')
 
 fig3 = pl.figure(3)
 fig3.clf()
@@ -83,12 +90,14 @@ ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
              marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
 ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
              xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
+             yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
             markerfacecolor='orange')
 ax3.set_xscale('log')
 ax3.set_yscale('log')
 ax3.set_xlabel("$\Sigma_{gas}$")
 ax3.set_ylabel("$\Gamma$")
+fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
 
 
 
