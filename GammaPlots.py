@@ -170,3 +170,16 @@ ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
 
 fig3.savefig('GammaVsSigmaGas_withTheory.pdf', bbox_inches='tight')
+
+
+fbound_median = np.nanmedian(global_fbound)
+fbound_errmin = fbound_median - np.nanpercentile(global_fbound, 16.)
+fbound_errmax = np.nanpercentile(global_fbound, 84.) - fbound_median
+
+print('fbound_global: %.2f+%.2f-%.2f' % (np.around(fbound_median,2),np.around(fbound_errmax,2),np.around(fbound_errmin,2)))
+
+fbound_median = np.nanmedian(local_fbound)
+fbound_errmin = fbound_median - np.nanpercentile(local_fbound, 16.)
+fbound_errmax = np.nanpercentile(local_fbound, 84.) - fbound_median
+
+print('fbound_local: %.2f+%.2f-%.2f' % (np.around(fbound_median,2),np.around(fbound_errmax,2),np.around(fbound_errmin,2)))
