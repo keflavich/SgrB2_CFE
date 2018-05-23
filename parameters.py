@@ -4,7 +4,7 @@ from astropy import constants
 
 from cfemodel import cfeglobal
 
-nmc = 10000
+nmc = 100000
 
 qvir_arr = 10**np.random.normal(np.log10(1.1),0.4/1.1/np.log(10),nmc)
 tview_arr = np.random.normal(0.74,0.16,nmc)

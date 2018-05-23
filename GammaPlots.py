@@ -3,6 +3,14 @@ import numpy as np
 from astropy import units as u
 from astropy.table import Table, Column
 
+pl.matplotlib.rcParams['xtick.direction'] = 'in'
+pl.matplotlib.rcParams['ytick.direction'] = 'in'
+pl.rc('font', family='serif')
+pl.matplotlib.rcParams['font.serif'] = 'Times New Roman'
+pl.matplotlib.rcParams['mathtext.fontset'] = 'dejavuserif'
+pl.matplotlib.rcParams['mathtext.rm'] = 'dejavuserif'
+pl.rc('text', usetex=True)
+
 # Adamo+ 2015 for most of the data
 # Kruijssen & Bastian 2016 for gas surface densities
 galaxy_data = {'SMC': {'SigSFR':0.001, 'Gamma':4.2, 'eGamma':(0.3,0.2), 'SigGas': 10**0.96, 'distance': 60*u.kpc},
@@ -77,8 +85,9 @@ ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfden
             markerfacecolor='k')
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.set_xlabel("$\Sigma_{SFR}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=18)
+ax.set_xlabel("$\Sigma_{\mathrm{SFR}}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=18)
 ax.set_ylabel("$\Gamma$", fontsize=18)
+ax.set_ylim(1,100)
 ax.tick_params(labelsize=16)
 fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 
@@ -96,6 +105,7 @@ ax2.set_yscale('log')
 ax2.set_xlabel("Distance [Mpc]", fontsize=18)
 ax2.set_ylabel("$\Gamma$", fontsize=18)
 ax2.tick_params(labelsize=16)
+ax2.set_ylim(1,100)
 fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 fig2.savefig('GammaVsDistance.pdf', bbox_inches='tight')
 
@@ -115,14 +125,22 @@ ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
-ax3.set_xlabel("$\Sigma_{gas}$ [M$_\odot$ pc$^{-2}$]", fontsize=18)
+ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=18)
 ax3.set_ylabel("$\Gamma$", fontsize=18)
 ax3.tick_params(labelsize=16)
+ax3.set_ylim(1,100)
+ax3.set_xlim(0.5, 7e3)
 fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
 
 
 
 import imp
+#import parameters
+#import cfe_global_plots
+#import cfe_local_plots
+#imp.reload(parameters)
+#imp.reload(cfe_global_plots)
+#imp.reload(cfe_local_plots)
 from cfe_global_plots import sigma_arr, surfg_arr, fbound as global_fbound
 from cfe_local_plots import fbound as local_fbound
 
@@ -192,3 +210,86 @@ fbound_errmin = fbound_median - np.nanpercentile(local_fbound, 16.)
 fbound_errmax = np.nanpercentile(local_fbound, 84.) - fbound_median
 
 print('fbound_local: %.2f+%.2f-%.2f' % (np.around(fbound_median,2),np.around(fbound_errmax,2),np.around(fbound_errmin,2)))
+
+
+
+
+
+fig4 = pl.figure(4, figsize=(10,4))
+fig4.clf()
+ax = fig4.add_subplot(1,3,2)
+ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
+            marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
+ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
+            yerr=cfe_sb2_yerr,
+            marker='o', linestyle='none', markeredgecolor='r',
+            markerfacecolor='k')
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.set_xlabel("$\Sigma_{\mathrm{SFR}}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=12)
+ax.set_ylabel("$\Gamma$", fontsize=12)
+ax.set_ylim(1,100)
+ax.set_xlim(6e-4,15)
+ax.tick_params(labelsize=10)
+[xx.set_visible(False) for xx in ax.get_yticklabels()]
+
+ax2 = fig4.add_subplot(1,3,3)
+ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_high]),
+             marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
+ax2.errorbar(sgrb2_distance.value, cfe_sb2,
+             yerr=cfe_sb2_yerr,
+             marker='o', linestyle='none', markeredgecolor='r',
+             markerfacecolor='k')
+ax2.set_xscale('log')
+ax2.set_yscale('log')
+ax2.set_xlabel("Distance [Mpc]", fontsize=12)
+#ax2.set_ylabel("$\Gamma$", fontsize=18)
+ax2.tick_params(labelsize=10)
+ax2.set_ylim(1,100)
+[xx.set_visible(False) for xx in ax2.get_yticklabels()]
+
+ax3 = fig4.add_subplot(1,3,1)
+ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
+             marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
+ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
+             xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
+             yerr=cfe_sb2_yerr,
+            marker='o', linestyle='none', markeredgecolor='r',
+            markerfacecolor='orange')
+ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
+             m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
+             yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
+            )
+ax3.set_xscale('log')
+ax3.set_yscale('log')
+ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=12)
+ax3.tick_params(labelsize=10)
+ax3.set_ylim(1,100)
+ax3.set_xlim(0.5, 7e3)
+#[xx.set_visible(False) for xx in ax3.get_yticklabels()]
+
+
+rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
+                           global_fbound, marker='none',
+                           #levels=[1-0.95,1-0.68])
+                            #colors=['b']*15,
+                            cmap=cm_red,
+                           bins=bins,
+                           percentilelevels=[0.05, 0.32],
+                          )
+rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
+                            local_fbound, marker='none',
+                            #levels=[1-0.95,1-0.68])
+                            #colors=['r']*15,
+                            cmap=cm_blue,
+                            linestyles='dotted',
+                           bins=bins,
+                           percentilelevels=[0.05, 0.32],
+                           )
+ax3.set_ylim(1,100)
+ax3.set_xlim(0.5, 7e3)
+ax3.set_ylabel("$\Gamma$", fontsize=12)
+
+fig4.subplots_adjust(wspace=0)
+
+fig4.savefig('GammaVsEverything_3panel.pdf', bbox_inches='tight')
