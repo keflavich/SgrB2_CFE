@@ -1,4 +1,4 @@
-\documentclass[twocolumn]{aastex61}
+\documentclass[twocolumn]{aastex62}
 \input{preface}
 \begin{document}
 
@@ -34,20 +34,31 @@
 \end{abstract}
 
 \section{Introduction}
+Gravitationally bound stellar clusters are some of the most important objects
+in astronomy, providing both luminous probes of the star formation process at
+great distances and large coeval and co-located samples of stars in the local
+universe.  The prevalence of these clusters varies substantially with
+environment: the \emph{cluster formation efficiency} $\Gamma$ is not constant.
 
-{\color{red}TODO: fill out introduction}
-The cluster formation efficiency is an important measurement...
-Kruijssen+ 2012
+\citet{Kruijssen2012a} proposed a theory in which $\Gamma$ is a function of gas
+density\footnote{In galactic disks, the relevant parameter is often gas surface
+density, while in less ordered environments, it is the volume density}.  While
+this theory reasonably explains observations spanning many galaxies, it has not
+yet been directly tested in a high-density environment where both the
+unclustered and clustered stars are detected.  
+In this Letter, we perform such a test in the Sgr B2 cloud, a high-density
+region in the Galactic center in which both stars and bound clusters are presently
+forming.
 
-{\color{red}
-Notes to self:
-\begin{itemize}
-    %\item mass of stars, gas in M, N, distributed population, S? [mostly taken from Schmiedeke] [DONE?]
-    %\item virial parameters?  Use DePree's data for velocity dispersion?  [added my own H41a; DePree's are useful though] [ DONE - note to Diederik - this is for stars, not gas ]
-    %\item cluster definition: purely radial.  Is S a cluster?  Is NE?  [assuming "No" below; have added discussion about effect of expanding N]
-    \item Age difference.  What (maximal) errors can this impose?
-\end{itemize}
-}
+% {\color{red}
+% Notes to self:
+% \begin{itemize}
+%     %\item mass of stars, gas in M, N, distributed population, S? [mostly taken from Schmiedeke] [DONE?]
+%     %\item virial parameters?  Use DePree's data for velocity dispersion?  [added my own H41a; DePree's are useful though] [ DONE - note to Diederik - this is for stars, not gas ]
+%     %\item cluster definition: purely radial.  Is S a cluster?  Is NE?  [assuming "No" below; have added discussion about effect of expanding N]
+%     \item Age difference.  What (maximal) errors can this impose?
+% \end{itemize}
+% }
 
 \section{Observational Summary}
 
@@ -63,10 +74,13 @@ and 5 in Sgr B2 N.  Of these, 7 detected in Sgr B2M were not reported in
 VLA-detected sources is an \hii region and therefore contains at least one star
 with $M\gtrsim20$ \msun, equivalent to a B0 star.
 
-\citet{Ginsburg2018a} reported a total of 271 sources spread throughout the Sgr
-B2 cloud, of which 31 are confirmed \hii regions.  The rest are candidate
-protostars, with luminosity constraints and other considerations suggesting
-that they all have $M\gtrsim8$ \msun.
+\citet{Ginsburg2018a} observed the cloud with ALMA, obtaining a resolution of
+$0.5\arcsec$ in the 3 mm band.  They reported a total of 271 sources spread
+throughout the cloud, of which 31 are confirmed \hii regions with implied
+masses $M_*>20$ \msun; the rest are young stellar object (YSO) candidates with
+masses $M_*>8$ \msun.  We follow \citet{Ginsburg2018a} in extrapolating the total
+stellar mass implied by the observed objects using a \citet{Kroupa2001a}
+initial mass function.
 
 
 \section{The mass of the clusters}
