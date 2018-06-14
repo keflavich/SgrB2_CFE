@@ -84,12 +84,12 @@ initial mass function.
 
 
 \section{The mass of the clusters}
-Cluster masses are determined by counting the number of HII regions and high-mass
-protostellar cores associated with each of the clusters.
+%Cluster masses are determined by counting the number of HII regions and high-mass
+%protostellar cores associated with each of the clusters.
 
 In Table 2 of \citet{Ginsburg2018a}, four clusters were considered: N, M, NE, and
-S.  Here, we re-evaluate the ``clusters" in NE and S.  These regions are not
-centrally concentrated and do not have many sources within the named region.
+S.  Here, we re-evaluate the ``clusters" in NE and S.  These regions contain
+few sources and are not centrally concentrated.
 They are both moderate mass and, at present, do not appear likely to form bound
 clusters.  We therefore exclude them from the analysis, but note that if they
 are forming bound clusters, the measured CFE would increase by a few percent.
@@ -153,6 +153,8 @@ $\sim50\%$ and that the lack of cores in the innermost region is due to
 incompleteness (e.g., from confusion) rather than their absence, as suggested
 in \citet{Ginsburg2018a}.
 
+The assumed stellar mass  $M_M=1.5\ee{4}$ \msun is therefore a lower limit.
+
 \subsection{Cluster membership in Sgr B2 N}
 \citet{Schmiedeke2016a} marked the Sgr B2 N cluster as a 10\arcsec  (0.4 pc) radius circle
 centered on Sgr B2 N K2.  \citet{Schmiedeke2016a} identified 3 compact \hii regions
@@ -171,14 +173,21 @@ is quite likely.
 
 
 \subsection{Velocity Dispersion Measurements - boundedness}
+\label{sec:vdisp}
+We measure the velocity dispersion of the stars as probed by their surrounding
+\hii regions to confirm that the clusters are presently gravitationally bound.
+Because these regions are mostly hypercompact \hii regions with radii less than a few
+thousand AU, they closely follow the motions of their stars and serve as reasonable
+probes of the underlying stellar kinematics.
 
 We compare our velocity measurements to those of \citet{De-Pree2011a} and
-\citet{De-Pree1996a} and perform some new velocity measurements based on the
-2013.1.00269.S data from
-\citet{Ginsburg2018a}.  Of the 32 unique regions within the field
-identified in the \citet{Gaume1995a} 1.3 cm data, which have resolution comparable
-to the \citet{De-Pree2011a} H52$\alpha$ and H66$\alpha$ and the \citet{Ginsburg2018a}
-H41$\alpha$ data, 15 had measurements in \citet{De-Pree2011a}.  We have
+\citet{De-Pree1996a} and perform  new velocity measurements based on the
+data from \citet{Ginsburg2018a}.  Of the 32 unique \hii regions within the field
+identified in the \citet{Gaume1995a} 1.3 cm data, 
+%which have resolution comparable
+%to the \citet{De-Pree2011a} H52$\alpha$ and H66$\alpha$ and the \citet{Ginsburg2018a}
+%H41$\alpha$ data,
+15 had measurements in \citet{De-Pree2011a}.  We have
 measured an additional 11 RRL velocities from the H41$\alpha$ line.
 Our measurements agree to within 5 \kms with those of \citet{De-Pree2011a} for
 all sources
@@ -187,7 +196,7 @@ our spectrum is of much higher quality, so we adopt the H41$\alpha$ measurement
 as correct.
 All measured velocities are reported in Table \ref{tab:h41afits}.
 
-We measure the 1D velocity dispersion in Sgr B2 by taking the standard deviation
+We measure the 1D velocity dispersion in Sgr B2 M by taking the standard deviation
 of the measured V$_{LSR}$ values.
 Using only the \citet{De-Pree2011a} measurements, we obtain $\sigma_{1D}\approx9~\kms$.
 Using the full data set, we obtain a higher $\sigma_{1D}\approx12~\kms$.
@@ -195,16 +204,18 @@ In both cases, $\sigma_{1D}$ is significantly lower than the escape velocity.
 %1D Velocity Dispersion of 41a: 11.773405291227526, 52a: 9.013305133051228, 66a: 9.52127673916695
 
 However, some individual sources are moving at high velocity with respect to
-the average ($\bar{v}_{LSR}(H41\alpha) = 58.5 \kms$, $\bar{v}_{LSR}(H52\alpha)
-= 65.8 \kms$), the fastest being G10.47 at $v_{LSR}=34$ \kms or
-$v_{center}=24-32$ \kms.  There is a small group at these highly negative
+the average ($\bar{v}_{LSR}(H41\alpha) = 58.5~\kms$, $\bar{v}_{LSR}(H52\alpha)
+= 65.8~\kms$), the fastest being G10.47 at $v_{LSR}=34$~\kms or
+$v_{rel}=24-32$~\kms.  There is a small group at these highly negative
 velocities and a projected distance from the center $r<0.1$ pc; these may be
-bound to a higher potential than we have inferred above, or they could be unbound
+bound to a deeper potential than we have inferred above, or they could be unbound
 from the main cluster.
 The \hii region J is separated by 0.4 pc and 16--24 \kms and is a diffuse \hii
 region.  It may not be connected with the rest of the cluster.
 If we exclude regions J, F10.37, G, G10.44, and G10.47, the velocity dispersion
 drops to $\sigma_{1D}\approx8~\kms$.
+
+{\color{red} What happens to the implied stellar mass in this case?}
 
 \clearpage
 \input{h41afits}
@@ -213,10 +224,10 @@ drops to $\sigma_{1D}\approx8~\kms$.
 \subsection{The cluster formation efficiency}
 Table \ref{tab:clustermassestimates} shows the breakdown of ongoing star
 formation within the Sgr B2 region.  The total inferred mass of recently
-formed or forming stars is $M_{*,total}\approx4.6\ee{4}$ \msun spread across
-the whole cloud, with $M_{*,clustered}\approx1.7\ee{4}$ \msun concentrated
+formed or forming stars is ${M_{*,total}\approx4.6\ee{4}~\msun}$ spread across
+the whole cloud, with ${M_{*,clustered}\approx1.7\ee{4}~\msun}$ concentrated
 in the Sgr B2 M and N clusters.  These values imply a \textit{cluster
-formation efficiency} $CFE=M_{*,clustered}/M_{*,total} = 37\%$.
+formation efficiency} ${\Gamma=M_{*,clustered}/M_{*,total} = 37\%}$.
 
 We have noted above that the membership of clusters M and N could be expanded,
 and while this expansion would have no effect on the estimated mass of the clusters
@@ -240,6 +251,7 @@ the theoretical prediction of the \citet{Kruijssen2012a} model.  The comparison
 data sets are a compilation from \citet{Adamo2015a}, plus spatially resolved
 M83 data from \citet{Freeman2017a} and \citet{Adamo2015a}.
 
+{\color{blue} 
 When evaluating the CFE, we only consider the bound fraction of star formation
 and omit the `cruel cradle effect' (CCE), i.e., the tidal disruption of
 star-forming overdensities by dense substructure in the ISM. This choice is
@@ -250,6 +262,17 @@ in all three dimensions, so the timescales used in that model are not
 appropriate for CMZ clouds.  Since we observe Sgr B2 at a very early stage, the
 clusters there have likely experienced few, if any, molecular cloud encounters
 driving disruptive tidal shocks.
+}
+
+The first panel in Figure \ref{fig:figure} shows the CFE $\Gamma$ as a function
+of gas surface density.  The data from this work on Sgr B2 are shown as an
+orange point, and the predictions from the \citet{Kruijssen2012a} model are
+overlaid in red and blue for the global and local versions of that theory,
+respectively.  The model and data are clearl in agreement.  The first two
+panels show that Sgr B2 fits along the relations defined by observations of
+other galaxies.  The third panel is included to illustrate that the distance
+to the object is not a predictor of the CFE; instead, a range of CFEs can be
+seen even within our own Galaxy.
 
 %\FigureThreePDF
 %{GammaVsDistance}
@@ -264,6 +287,11 @@ over the parameter space indicated in Table \ref{tab:model}.  Contours are shown
 at the 95\% and 68\% confidence levels for the local (blue) and global (red).
 }
 {fig:figure}{1}{\textwidth}
+
+\section{Conclusions}
+We have measured the cluster formation efficiency in the Galactic center cloud
+Sgr B2, $\Gamma=37-43\%$.  The CFE model of \citet{Kruijssen2012a} predicts the
+observed value to within a factor of 2.
 
 \input{model_params}
 

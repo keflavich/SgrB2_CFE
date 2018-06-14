@@ -288,7 +288,7 @@ rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                            )
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
-ax3.set_ylabel("$\Gamma$", fontsize=12)
+ax3.set_ylabel("$\Gamma$ (%)", fontsize=12)
 
 fig4.subplots_adjust(wspace=0)
 
