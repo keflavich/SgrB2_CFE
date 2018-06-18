@@ -3,11 +3,20 @@ def update_bibentries():
     import ads
     import bibtexparser
 
+    # some hacks because the later versions of bibtexparser don't understand
+    # month names like 'mar' or 'march', apparently only March is allowed.
+    parser = bibtexparser.bparser.BibTexParser(common_strings=True)
+    parser.bib_database.strings.update({v.lower():v for v in
+                                        parser.bib_database.strings.values()})
+    assert 'march' in parser.bib_database.strings
+
     with open('extracted.bib', 'r') as fh:
-        bib_database = bibtexparser.load(fh)
+        txt = fh.read()
+        bib_database = parser.parse(txt)
 
     with open('bibdesk.bib', 'r') as fh:
-        full_bib_database = bibtexparser.load(fh)
+        txt = fh.read()
+        full_bib_database = parser.parse(txt)
 
     arxivs = []
 
@@ -28,5 +37,6 @@ def update_bibentries():
     print(" ".join(arxivs))
 
 if __name__ == "__main__":
+    import os
     assert os.system('bibexport -o extracted.bib sgrb2_cores.aux') == 0
     update_bibentries()
