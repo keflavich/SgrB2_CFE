@@ -62,6 +62,8 @@ cfe_sb2 = sgrb2_data['$M_{inferred}$'][-1] / sgrb2_data['$M_{inferred}$'][-2] * 
 cfe_sb2_low = 37
 cfe_sb2_high = 43
 cfe_sb2_yerr = np.array([[cfe_sb2-cfe_sb2_low, cfe_sb2_high-cfe_sb2]]).T
+cfe_sb2 = 37
+cfe_sb2_yerr = 7 # updated based on arguments in text...
 sgrb2_surfdens = 1e3 * u.Msun/u.pc**2
 # this is not right...
 sgrb2_sfr_surfdens = (0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
@@ -82,13 +84,13 @@ ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
             yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
-            markerfacecolor='k')
+            markerfacecolor='orange')
 ax.set_xscale('log')
 ax.set_yscale('log')
 ax.set_xlabel("$\Sigma_{\mathrm{SFR}}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=18)
-ax.set_ylabel("$\Gamma$ (percent)", fontsize=18)
+ax.set_ylabel("$\Gamma$ (percent)", fontsize=22)
 ax.set_ylim(1,100)
-ax.tick_params(labelsize=16)
+ax.tick_params(labelsize=18)
 fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 
 fig2 = pl.figure(2)
@@ -99,12 +101,12 @@ ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_
 ax2.errorbar(sgrb2_distance.value, cfe_sb2,
              yerr=cfe_sb2_yerr,
              marker='o', linestyle='none', markeredgecolor='r',
-             markerfacecolor='k')
+             markerfacecolor='orange')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
-ax2.set_xlabel("Distance [Mpc]", fontsize=18)
-ax2.set_ylabel("$\Gamma$ (percent)", fontsize=18)
-ax2.tick_params(labelsize=16)
+ax2.set_xlabel("Distance [Mpc]", fontsize=22)
+ax2.set_ylabel("$\Gamma$ (percent)", fontsize=22)
+ax2.tick_params(labelsize=18)
 ax2.set_ylim(1,100)
 fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 fig2.savefig('GammaVsDistance.pdf', bbox_inches='tight')
@@ -125,9 +127,9 @@ ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
-ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=18)
-ax3.set_ylabel("$\Gamma$ (percent)", fontsize=18)
-ax3.tick_params(labelsize=16)
+ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=22)
+ax3.set_ylabel("$\Gamma$ (percent)", fontsize=22)
+ax3.tick_params(labelsize=18)
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
 fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
@@ -224,14 +226,14 @@ ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
             yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
-            markerfacecolor='k')
+            markerfacecolor='orange')
 ax.set_xscale('log')
 ax.set_yscale('log')
-ax.set_xlabel("$\Sigma_{\mathrm{SFR}}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=12)
+ax.set_xlabel("$\Sigma_{\mathrm{SFR}}$ [M$_\odot$ yr$^{-1}$ pc$^{-2}$]", fontsize=18)
 ax.set_ylabel("$\Gamma$ (percent)", fontsize=18)
 ax.set_ylim(1,100)
 ax.set_xlim(6e-4,15)
-ax.tick_params(labelsize=10)
+ax.tick_params(labelsize=14)
 [xx.set_visible(False) for xx in ax.get_yticklabels()]
 
 ax2 = fig4.add_subplot(1,3,3)
@@ -240,12 +242,12 @@ ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_
 ax2.errorbar(sgrb2_distance.value, cfe_sb2,
              yerr=cfe_sb2_yerr,
              marker='o', linestyle='none', markeredgecolor='r',
-             markerfacecolor='k')
+             markerfacecolor='orange')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
-ax2.set_xlabel("Distance [Mpc]", fontsize=12)
+ax2.set_xlabel("Distance [Mpc]", fontsize=18)
 #ax2.set_ylabel("$\Gamma$", fontsize=18)
-ax2.tick_params(labelsize=10)
+ax2.tick_params(labelsize=14)
 ax2.set_ylim(1,100)
 [xx.set_visible(False) for xx in ax2.get_yticklabels()]
 
@@ -263,8 +265,8 @@ ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
-ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=12)
-ax3.tick_params(labelsize=10)
+ax3.set_xlabel("$\Sigma_{\mathrm{gas}}$ [M$_\odot$ pc$^{-2}$]", fontsize=18)
+ax3.tick_params(labelsize=14)
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
 #[xx.set_visible(False) for xx in ax3.get_yticklabels()]
@@ -289,7 +291,7 @@ rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                            )
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
-ax3.set_ylabel("$\Gamma$ (percent)", fontsize=12)
+ax3.set_ylabel("$\Gamma$ (percent)", fontsize=18)
 
 fig4.subplots_adjust(wspace=0)
 
