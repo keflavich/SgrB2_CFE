@@ -99,7 +99,10 @@ throughout the cloud, of which 31 are confirmed \hii regions with implied
 masses $M_*>20$ \msun; the rest are young stellar object (YSO) candidates with
 masses $M_*>8$ \msun.  We follow \citet{Ginsburg2018a} in extrapolating the total
 stellar mass implied by the observed objects using a \citet{Kroupa2001a}
-initial mass function.
+initial mass function.  With this extrapolation, each \hii region implies
+the presence of a total of 326 \msun of stars, while each 8-20 \msun core
+represents 135 \msun, assuming an upper stellar mass limit of 200 \msun (though
+these numbers are weakly sensitive to the upper mass limit).
 
 
 \section{Mass of the clusters}
@@ -222,7 +225,7 @@ We measure the velocity dispersion of the stars as probed by their surrounding
 bound; we do not have enough velocity measurements in Sgr B2 N to perform a
 similar measurement.
 Because these regions are mostly hypercompact \hii regions with radii less than a few
-thousand AU, they closely follow the motions of their stars and serve as reasonable
+thousand AU, they closely follow the motions of their stars and serve as 
 probes of the underlying stellar kinematics.
 
 We compare our velocity measurements to those of \citet{De-Pree2011a} and
@@ -339,7 +342,7 @@ contours for the global and local renditions of that theory, respectively. The
 model and data are in clear agreement to within the uncertainties. The second
 panel shows the CFE as a function of the star formation rate surface density,
 which is related to the gas surface density
-\citep[e.g.][]{Kennicutt1998a,Bigiel2008a,Leroy2013a} and is often considered
+\citep[e.g.,][]{Kennicutt1998a,Bigiel2008a,Leroy2013a} and is often considered
 as the variable of interest in extragalactic studies of the CFE. The first two
 panels show that Sgr B2 fits along the relations defined by observations of
 other galaxies. The third panel shows the CFE as a function of distance from
@@ -374,7 +377,7 @@ We have measured the cluster formation efficiency in the Galactic Center cloud
 Sgr B2, resulting in $\Gamma=37\pm7\%$. This CFE is higher than that in the solar
 neighborhood, implying that the CFE varies within the Milky Way. Specifically,
 it changes with the galactic environment in a way that correlates with the
-local gas conditions. This is consistent with existing extragalactic
+local gas conditions. This observation is consistent with existing extragalactic
 observations. However, it additionally rules out the dependence of the CFE on
 distance from the Sun, which affected previous work and would have been
 suggestive of an observational bias. Instead, our results show that the
@@ -400,6 +403,13 @@ number KR4801/1-1), from the European Research Council (ERC) under the European
 Union's Horizon 2020 research and innovation programme via the ERC Starting
 Grant MUSTANG (grant agreement number 714907), and from Sonderforschungsbereich
 SFB 881 ``The Milky Way System'' (subproject P1) of the DFG.
+
+\software{
+The software used to make this version of the paper is available from github at
+\url{https://github.com/keflavich/SgrB2_ALMA_3mm_Mosaic/} and
+\url{https://github.com/keflavich/SgrB2_CFE}.  Pyspeckit \citep{Ginsburg2011c}
+was used for the line fitting.  Plots were made with matplotlib \citep{Hunter2007a}.
+}
 
 \input{solobib.tex}
 
