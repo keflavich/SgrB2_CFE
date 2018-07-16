@@ -147,7 +147,7 @@ includegre = re.compile('includegraphics\[.*\]{{?(.*?)}?}')
 fig_suffixes = "png|eps|pdf"
 lonelygraphics = re.compile('^\s*{{?(.*?(%s)?)}?}' % fig_suffixes)
 
-out_suffix = 'png'
+out_suffix = 'pdf'
 
 count = 1
 
@@ -243,8 +243,8 @@ for ii,line in enumerate(file.readlines()):
         prevline = ''
 
     # special case for lines that contain .'s specifically for w51_alma_00308
-    if "}.pdf}" in line:
-        line = line.replace("}.pdf}", "}.png}")
+    #if "}.pdf}" in line:
+    #    line = line.replace("}.pdf}", "}.png}")
 
     if line.strip() == "\FigureTwoAA":
         assert prevline == 'fig2'
