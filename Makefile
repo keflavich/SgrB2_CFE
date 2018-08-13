@@ -19,6 +19,8 @@ cfe:
 	python make.py --texpath=${texpath}
 	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=cfe.pdf cfe_compressed.pdf
 
+cfe.tex: cfe
+
 .PHONY: diff
 diff:
 	python parse_macros.py cfe.tex cfe.tex
