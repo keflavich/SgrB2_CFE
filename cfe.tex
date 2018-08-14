@@ -107,24 +107,22 @@ the presence of a total of 326~\msun of stars, while each 8-20~\msun core
 represents 135~\msun, assuming an upper stellar mass limit of 200~\msun (though
 these numbers are weakly sensitive to the upper mass limit).
 
-\referee{\citet{Ginsburg2018a} detailed the limitations of this census that we
-briefly address here.
-The sample is complete above $M>8$~\msun except possibly within the clusters,
-which are dominated by the more complete measurements of $M>20$~\msun sources. 
-Unless there is a spatially variable stellar mass function across the region
-in which clusters preferentially form high-mass stars, the survey is not biased
-toward detection of clustered sources.
-%For the survey to miss a
-%significant distributed population, there would have to be a highly spatially
-%variable stellar initial mass function, which, while possible, is not a favored
-%default option.
-The observed and discussed region appears to
-encompass a singular star forming event, since there is a large area
-surrounding the detected protostars that shows no signs of star formation
-\citep[e.g., Figure 8 of][]{Ginsburg2018a}, so a different boundary drawn
-around the region would not alter our results.
-%The census was also complete to gas above a surface density of 
-}
+
+% \referee{
+% Unless there is a spatially variable stellar mass function across the region
+% in which clusters preferentially form high-mass stars, the survey is not biased
+% toward detection of clustered sources over unclustered.
+% %For the survey to miss a
+% %significant distributed population, there would have to be a highly spatially
+% %variable stellar initial mass function, which, while possible, is not a favored
+% %default option.
+% The observed and discussed region appears to
+% encompass a singular star forming event, since there is a large area
+% surrounding the detected protostars that shows no signs of star formation
+% \citep[e.g., Figure 8 of][]{Ginsburg2018a}, so a different boundary drawn
+% around the region would not alter our results.
+% %The census was also complete to gas above a surface density of 
+% }
 
 \section{Mass of the clusters}
 %Cluster masses are determined by counting the number of HII regions and high-mass
@@ -373,6 +371,68 @@ B2 breaks the degeneracy between surface density and distance that existed in
 previous studies. The distance to the object is not a predictor of the CFE (a
 concern raised by \citealt{Adamo2011a} for extragalactic samples); instead, a
 range of CFEs can be seen even within our own Galaxy.
+
+\subsection{Effects of completeness}
+\referee{
+The above analysis assumes the catalogs used are complete.  We note several
+ways the survey may be incomplete, which were described in detail in
+\citet{Ginsburg2018a}, and address the impact of this incompleteness
+on our conclusions here.
+}
+
+\referee{
+The sample is complete above $M_*>20$~\msun. For the less massive `cores', the
+completeness is much more difficult to evaluate, since models for the 3 mm
+luminosity of such sources are limited.  For example, using the protostellar
+evolution and radiative transfer models of \citet{Zhang2018b}, our survey is
+100\% complete to any source down to 8 \msun and highly complete to
+$\gtrsim5\msun$.  However, using the \citet{Robitaille2017a} models, our
+completeness in the 8-12 \msun range from 50-100\%, depending on the assumed
+dust geometry around the central source.  If the catalog is less than 50\%
+complete, though, the estimated star formation rate for Sgr B2 would exceed
+the total for the whole CMZ estimated through several independent methods
+\citep{Barnes2017b}, suggesting that such low completeness is unlikely.
+}
+
+\referee{
+In the most extreme case, if the sources detected are all more massive than we
+have assumed, the unclustered population would be larger relative to the clustered.
+We can establish a conservative lower limit on the CFE by directly comparing the
+source counts, assuming that they all sample from the same population with a
+common lower mass limit.  With 78 clustered out of a total of 297 sources, we
+obtain a CFE$>26\%$.
+}
+
+% \referee{
+% The cluster sample is expected to be less complete than the unclustered
+% regions, since the noise in the \citet{Ginsburg2018a} maps is higher within the
+% clusters.  Incompleteness toward the clusters would imply a greater cluster
+% mass compared to the distributed population, increasing the CFE.
+% }
+
+\referee{
+The catalog has spatially variable completeness because of varying noise in the
+images.  It is less complete in the clusters and their immediate vicinity.  The
+effect of this incompletness is to bias the cluster masses low relative to the
+unclustered population.  However, the clusters are also well-populated by more
+massive stars ($M_*>20~\msun$), to which the radio catalogs are very sensitive,
+so this bias is unlikely to affect the results.
+}
+
+\referee{
+The definition of Sgr B2 as a coherent region is arbitrary, so one might be
+concerned about spatial completeness.  The \citet{Ginsburg2018a} map covered a
+large area, about 15$\times15$ pc, and the region within that map that contains
+protostars is $\sim5\times12$ pc.  Surrounding this region, within the map,
+there is a $>2$ pc `buffer' in which no protostars were observed (e.g., their
+Figure 8), suggesting that the sample discussed here represents a single
+coherent star-forming region.  Applying the `last closed contour' criterion
+suggested by \citet{Alves2017b} to the Herschel column density maps shows that
+the observed region is complete to column densities $N(\hh) > 2.5\ee{23}$
+\persc, which is a factor of two below the apparent threshold for star
+formation in both G0.253+0.016 and Sgr B2 noted in \citet{Ginsburg2018a}.
+}
+
 
 %\FigureThreePDF
 %{GammaVsDistance}

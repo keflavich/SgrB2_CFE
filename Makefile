@@ -18,6 +18,8 @@ cfe:
 	#python make_apjform.py
 	python make.py --texpath=${texpath}
 	gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=cfe.pdf cfe_compressed.pdf
+	python paper2arxiv.py --apj
+	python paper2arxiv.py
 
 cfe.tex: cfe
 

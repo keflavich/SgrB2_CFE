@@ -51,7 +51,7 @@ beginre = re.compile(r'\begin{document}')
 endre = re.compile(r'\\end{document}')
 # \i also became a special character in python3.6?
 prefacere = re.compile(r'\\input{preface.*}')
-solobibre = re.compile(r"\\input{(solobib)}")
+solobibre = re.compile(r"\\input{(solobib)(.tex)?}")
 
 def strip_input(list_of_lines):
     # strip out preface, solobib, end{doc}
@@ -88,13 +88,17 @@ for ii,line in enumerate(file.readlines()):
         print(ii, "Doing solobib " + fn)
         with open(os.path.join(ppath,fn),'r') as f:
             solobib = f.readlines()
+            bibmatch = False
             for ln in solobib:
                 if ln[0].strip() == "%":
                     continue
                 bib = bibre.search(ln)
                 if bib is not None:
                     print(ii,"Bib matched: ",bib.groups())
+                    bibmatch = True
                     dobib(bib,outf)
+            if not bibmatch:
+                raise ValueError("solobib was done, but no bibliography was found.")
     elif input is not None:
         fn = os.path.splitext(input.groups()[0])[0] + ".tex"
         if fn.count('.') > 1:
