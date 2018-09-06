@@ -66,7 +66,7 @@ egamma_low,egamma_high = np.array([x['eGamma'] for x in galaxy_data.values()]).T
 distance = u.Quantity([x['distance'] for x in galaxy_data.values()])
 
 sgrb2_data = Table.read('../tables/cluster_mass_estimates_cfe.csv')
-cfe_sb2 = sgrb2_data['$M_{inferred}$'][-1] / sgrb2_data['$M_{inferred}$'][-2] * 100
+cfe_sb2 = sgrb2_data[r'$M_{\rm inferred}$'][-1] / sgrb2_data[r'$M_{\rm inferred}$'][-2] * 100
 cfe_sb2_low = 37
 cfe_sb2_high = 43
 cfe_sb2_yerr = np.array([[cfe_sb2-cfe_sb2_low, cfe_sb2_high-cfe_sb2]]).T

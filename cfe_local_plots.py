@@ -1,18 +1,16 @@
 # CFE
 
+import os
 import numpy as np
 from astropy.utils.console import ProgressBar
 from astropy import units as u
+from astropy.table import Table
 import shutil
 
 from cfemodel import cfelocal
-import imp
-import parameters
-imp.reload(parameters)
 
 from parameters import (nmc, qvir_arr, tview_arr, surfGMC_arr, beta0_arr,
-                        surfg_arr, sigma_arr, Omega_arr, qT_arr,
-                        mass_density_arr, cs_arr
+                        surfg_arr, sigma_arr, mass_density_arr, cs_arr
                        )
 
 cfes = np.zeros(nmc)
@@ -90,6 +88,6 @@ else:
 
     print('fcce: %.2f+%.2f-%.2f' % (np.around(fcce_median,2),np.around(fcce_errmax,2),np.around(fcce_errmin,2)))
 
-    tbl = table.Table(data=[sigma_arr, surfg_arr, fbound], names=['sigma','surfg','fbound'])
+    tbl = Table(data=[sigma_arr, surfg_arr, fbound], names=['sigma','surfg','fbound'])
 
     tbl.write("cfe_local_table.txt", format='ascii.csv')
