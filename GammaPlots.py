@@ -3,6 +3,14 @@ import numpy as np
 from astropy import units as u
 from astropy.table import Table, Column
 
+
+from cfe_global_plots import surfg_arr, fbound as global_fbound
+from cfe_local_plots import fbound as local_fbound
+
+from matplotlib.colors import LinearSegmentedColormap
+
+from mpl_plot_templates import adaptive_param_plot
+
 pl.matplotlib.rcParams['xtick.direction'] = 'in'
 pl.matplotlib.rcParams['ytick.direction'] = 'in'
 pl.rc('font', family='serif')
@@ -64,11 +72,20 @@ cfe_sb2_high = 43
 cfe_sb2_yerr = np.array([[cfe_sb2-cfe_sb2_low, cfe_sb2_high-cfe_sb2]]).T
 cfe_sb2 = 37
 cfe_sb2_yerr = 7 # updated based on arguments in text...
+
+# the average surface density (in dense gas) across the "stream", N(H2) ~ 5e22 cm^-2
 sgrb2_surfdens = 1e3 * u.Msun/u.pc**2
-# this is not right...
-sgrb2_sfr_surfdens = (0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
-esgrb2_sfr_surfdens = (0.1 * 0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
+
+# # this is not right...
+# this number is an estimate of the immediate, local SFR as measured within Sgr
+# B2 over a 15x15pc region from my data directly.  It's not right because the
+# Kruijssen theory is based on the global conditions, not local
+# sgrb2_sfr_surfdens = (0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
+# esgrb2_sfr_surfdens = (0.1 * 0.062 * u.Msun/u.yr/(15*u.pc)**2).to(u.Msun/u.yr/u.kpc**2)
+
 sgrb2_distance = (8.5*u.kpc).to(u.Mpc)
+
+# this is the "correct" surface density to use averaged over the stream area
 stream_area = (120**2-60**2)*np.pi*u.pc**2
 sgrb2_sfr_surfdens = (0.1 * u.Msun/u.yr/(stream_area)).to(u.M_sun/u.yr/u.kpc**2)
 min_stream_area, max_stream_area = (100**2-80**2)*np.pi*u.pc**2, (140**2-60**2)*np.pi*u.pc**2
@@ -119,8 +136,8 @@ ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
              xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
              yerr=cfe_sb2_yerr,
-            marker='o', linestyle='none', markeredgecolor='r',
-            markerfacecolor='orange')
+             marker='o', linestyle='none', markeredgecolor='r',
+             markerfacecolor='orange')
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
              yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
@@ -136,44 +153,26 @@ fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
 
 
 
-import imp
-#import parameters
-#import cfe_global_plots
-#import cfe_local_plots
-#imp.reload(parameters)
-#imp.reload(cfe_global_plots)
-#imp.reload(cfe_local_plots)
-from cfe_global_plots import sigma_arr, surfg_arr, fbound as global_fbound
-from cfe_local_plots import fbound as local_fbound
-
-from matplotlib.colors import LinearSegmentedColormap
-
-import sys
-from mpl_plot_templates import adaptive_param_plot
-imp.reload(sys.modules['mpl_plot_templates.adaptive_param_plot'])
-imp.reload(sys.modules['mpl_plot_templates'])
-from mpl_plot_templates import adaptive_param_plot
-
 bins = 10**np.mgrid[1.5:3.5:0.25, 0.5:2:0.1]
 bins = np.array([np.logspace(1.5,4,15), np.logspace(0.5,2,15)])
 
 cdict1 = {'red':   ((0.0, 1.0, 1.0),
-                   (1.0, 1.0, 1.0)),
+                    (1.0, 1.0, 1.0)),
 
-         'green': ((0.0, 0.0, 0.0),
-                   (1.0, 0.0, 0.0)),
+          'green': ((0.0, 0.0, 0.0),
+                    (1.0, 0.0, 0.0)),
 
-         'blue':  ((0.0, 0.0, 0.0),
-                   (1.0, 0.0, 0.0))
+          'blue':  ((0.0, 0.0, 0.0),
+                    (1.0, 0.0, 0.0))
         }
 cdictblue = {'red':   ((0.0, 0.0, 0.0),
                        (1.0, 0.0, 0.0)),
 
-         'green': ((0.0, 0.0, 0.0),
-                   (1.0, 0.0, 0.0)),
+             'green': ((0.0, 0.0, 0.0),
+                       (1.0, 0.0, 0.0)),
 
-         'blue':  ((0.0, 1.0, 1.0),
-                   (1.0, 1.0, 1.0))
+             'blue':  ((0.0, 1.0, 1.0),
+                       (1.0, 1.0, 1.0))
         }
 cm_red = LinearSegmentedColormap('red', cdict1)
 cm_blue = LinearSegmentedColormap('blue', cdictblue)
@@ -182,8 +181,8 @@ cm_blue = LinearSegmentedColormap('blue', cdictblue)
 rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                            global_fbound, marker='none',
                            #levels=[1-0.95,1-0.68])
-                            #colors=['b']*15,
-                            cmap=cm_red,
+                           #colors=['b']*15,
+                           cmap=cm_red,
                            bins=bins,
                            percentilelevels=[0.05, 0.32],
                           )
@@ -193,8 +192,8 @@ rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                             #colors=['r']*15,
                             cmap=cm_blue,
                             linestyles='dotted',
-                           bins=bins,
-                           percentilelevels=[0.05, 0.32],
+                            bins=bins,
+                            percentilelevels=[0.05, 0.32],
                            )
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
@@ -257,8 +256,8 @@ ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
              xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
              yerr=cfe_sb2_yerr,
-            marker='o', linestyle='none', markeredgecolor='r',
-            markerfacecolor='orange')
+             marker='o', linestyle='none', markeredgecolor='r',
+             markerfacecolor='orange')
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
              yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
@@ -275,8 +274,8 @@ ax3.set_xlim(0.5, 7e3)
 rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                            global_fbound, marker='none',
                            #levels=[1-0.95,1-0.68])
-                            #colors=['b']*15,
-                            cmap=cm_red,
+                           #colors=['b']*15,
+                           cmap=cm_red,
                            bins=bins,
                            percentilelevels=[0.05, 0.32],
                           )
@@ -286,8 +285,8 @@ rslt2 = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
                             #colors=['r']*15,
                             cmap=cm_blue,
                             linestyles='dotted',
-                           bins=bins,
-                           percentilelevels=[0.05, 0.32],
+                            bins=bins,
+                            percentilelevels=[0.05, 0.32],
                            )
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
