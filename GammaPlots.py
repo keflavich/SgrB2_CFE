@@ -137,6 +137,7 @@ ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
              yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
+             color='g',
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')
@@ -148,12 +149,12 @@ ax3.set_xlim(0.5, 7e3)
 fig3.savefig('GammaVsSigmaGas_extragalonly.pdf', bbox_inches='tight')
 fig3.savefig('GammaVsSigmaGas_extragalonly.svg', bbox_inches='tight')
 
-ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
-             xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
-             yerr=cfe_sb2_yerr,
-             marker='o', linestyle='none', markeredgecolor='r',
-             color='orange',
-             markerfacecolor='orange')
+sb2pt = ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
+                     xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65,
+                                     sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
+                     yerr=cfe_sb2_yerr, marker='o', linestyle='none',
+                     markeredgecolor='r', color='orange',
+                     markerfacecolor='orange')
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
 fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
@@ -208,6 +209,12 @@ ax3.set_xlim(0.5, 7e3)
 
 fig3.savefig('GammaVsSigmaGas_withTheory.pdf', bbox_inches='tight')
 fig3.savefig('GammaVsSigmaGas_withTheory.svg', bbox_inches='tight')
+
+for x in sb2pt.get_children():
+    x.set_visible(False)
+
+fig3.savefig('GammaVsSigmaGas_withTheory_withoutSB2.pdf', bbox_inches='tight')
+fig3.savefig('GammaVsSigmaGas_withTheory_withoutSB2.svg', bbox_inches='tight')
 
 
 fbound_median = np.nanmedian(global_fbound)

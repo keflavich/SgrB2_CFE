@@ -79,3 +79,15 @@ else:
     tbl = table.Table(data=[sigma_arr, surfg_arr, fbound], names=['sigma','surfg','fbound'])
 
     tbl.write("cfe_global_table.txt", format='ascii.csv')
+
+
+if __name__ == "__main__":
+
+    from mpl_plot_templates import adaptive_param_plot
+
+    bins = np.array([np.logspace(1.5,4,15), np.logspace(0.5,2,15)])
+    rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
+                               fbound, marker='none',
+                               bins=bins,
+                               percentilelevels=[0.05, 0.32],
+                              )
