@@ -101,6 +101,7 @@ ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
             yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
+            color='orange',
             markerfacecolor='orange')
 ax.set_xscale('log')
 ax.set_yscale('log')
@@ -118,6 +119,7 @@ ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_
 ax2.errorbar(sgrb2_distance.value, cfe_sb2,
              yerr=cfe_sb2_yerr,
              marker='o', linestyle='none', markeredgecolor='r',
+             color='orange',
              markerfacecolor='orange')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
@@ -125,7 +127,6 @@ ax2.set_xlabel("Distance [Mpc]", fontsize=22)
 ax2.set_ylabel("$\Gamma$ (percent)", fontsize=22)
 ax2.tick_params(labelsize=18)
 ax2.set_ylim(1,100)
-fig.savefig('GammaVsSigmaSFR.pdf', bbox_inches='tight')
 fig2.savefig('GammaVsDistance.pdf', bbox_inches='tight')
 
 fig3 = pl.figure(3)
@@ -133,11 +134,6 @@ fig3.clf()
 ax3 = fig3.gca()
 ax3.errorbar(siggas.value, gamma, yerr=np.array([egamma_low, egamma_high]),
              marker='s', linestyle='none', markeredgecolor='k', alpha=0.6)
-ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
-             xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
-             yerr=cfe_sb2_yerr,
-             marker='o', linestyle='none', markeredgecolor='r',
-             markerfacecolor='orange')
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
              yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
@@ -149,7 +145,19 @@ ax3.set_ylabel("$\Gamma$ (percent)", fontsize=22)
 ax3.tick_params(labelsize=18)
 ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
+fig3.savefig('GammaVsSigmaGas_extragalonly.pdf', bbox_inches='tight')
+fig3.savefig('GammaVsSigmaGas_extragalonly.svg', bbox_inches='tight')
+
+ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
+             xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
+             yerr=cfe_sb2_yerr,
+             marker='o', linestyle='none', markeredgecolor='r',
+             color='orange',
+             markerfacecolor='orange')
+ax3.set_ylim(1,100)
+ax3.set_xlim(0.5, 7e3)
 fig3.savefig('GammaVsSigmaGas.pdf', bbox_inches='tight')
+fig3.savefig('GammaVsSigmaGas.svg', bbox_inches='tight')
 
 
 
@@ -199,6 +207,7 @@ ax3.set_ylim(1,100)
 ax3.set_xlim(0.5, 7e3)
 
 fig3.savefig('GammaVsSigmaGas_withTheory.pdf', bbox_inches='tight')
+fig3.savefig('GammaVsSigmaGas_withTheory.svg', bbox_inches='tight')
 
 
 fbound_median = np.nanmedian(global_fbound)
@@ -225,6 +234,7 @@ ax.errorbar(sigsfr.value, gamma, yerr=np.array([egamma_low, egamma_high]),
 ax.errorbar(sgrb2_sfr_surfdens.value, cfe_sb2, xerr=np.array([esgrb2_sfr_surfdens]).T,
             yerr=cfe_sb2_yerr,
             marker='o', linestyle='none', markeredgecolor='r',
+            color='orange',
             markerfacecolor='orange')
 ax.set_xscale('log')
 ax.set_yscale('log')
@@ -241,6 +251,7 @@ ax2.errorbar(distance.to(u.Mpc).value, gamma, yerr=np.array([egamma_low, egamma_
 ax2.errorbar(sgrb2_distance.value, cfe_sb2,
              yerr=cfe_sb2_yerr,
              marker='o', linestyle='none', markeredgecolor='r',
+             color='orange',
              markerfacecolor='orange')
 ax2.set_xscale('log')
 ax2.set_yscale('log')
@@ -257,6 +268,7 @@ ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
              xerr=np.array([[sgrb2_surfdens.value-sgrb2_surfdens.value/1.65, sgrb2_surfdens.value*1.65-sgrb2_surfdens.value]]).T,
              yerr=cfe_sb2_yerr,
              marker='o', linestyle='none', markeredgecolor='r',
+             color='orange',
              markerfacecolor='orange')
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],

@@ -6,6 +6,7 @@ from astropy.utils.console import ProgressBar
 from astropy import units as u
 from astropy import constants
 from astropy import table
+from astropy.table import Table
 
 from cfemodel import cfeglobal
 
