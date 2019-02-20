@@ -91,7 +91,8 @@ sgrb2_sfr_surfdens = (0.1 * u.Msun/u.yr/(stream_area)).to(u.M_sun/u.yr/u.kpc**2)
 min_stream_area, max_stream_area = (100**2-80**2)*np.pi*u.pc**2, (140**2-60**2)*np.pi*u.pc**2
 esgrb2_sfr_surfdens = np.array(((sgrb2_sfr_surfdens - (0.1 * u.Msun/u.yr/(max_stream_area)).to(u.M_sun/u.yr/u.kpc**2)).value,
                                ((0.1 * u.Msun/u.yr/(min_stream_area)).to(u.M_sun/u.yr/u.kpc**2) - sgrb2_sfr_surfdens).value))
-
+print("Sgr B2 SFR surface density = {0} +/- {1}".format(sgrb2_sfr_surfdens, esgrb2_sfr_surfdens))
+print("Sgr B2  surface density = {0} */ {1}".format(sgrb2_surfdens, 1.65))
 
 fig = pl.figure(1)
 fig.clf()
