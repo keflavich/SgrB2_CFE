@@ -281,6 +281,7 @@ ax3.errorbar(sgrb2_surfdens.value, cfe_sb2,
 ax3.errorbar(m83cfe['surfdens_h2'][m83cfe['zone'] == 'eqarea'],
              m83cfe['cfe'][m83cfe['zone'] == 'eqarea'],
              yerr=m83cfe['ecfe'][m83cfe['zone'] == 'eqarea'],
+             color='g',
             )
 ax3.set_xscale('log')
 ax3.set_yscale('log')

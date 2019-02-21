@@ -7,6 +7,7 @@ from astropy import units as u
 from astropy import constants
 from astropy import table
 from astropy.table import Table
+import shutil
 
 from cfemodel import cfeglobal
 
@@ -16,9 +17,25 @@ from parameters import (nmc, qvir_arr, tview_arr, surfGMC_arr, beta0_arr,
                        )
 
 
+# basic test
+shutil.copy('cfemodel/parameters.in', 'parameters.in')
+result1 = cfeglobal.cfemod.f_xcce(surfg=(9.3*u.M_sun/u.pc**2).to(u.kg/u.m**2).value,
+                                  qt=2.0, omega=(0.026/u.Myr).to(u.s**-1).value,
+                                  surfgmc=(100*u.M_sun/u.pc**2).to(u.kg/u.m**2).value,
+                                  qvir=1.3, tview=(10*u.Myr).to(u.s).value
+                                 )
+result = cfeglobal.cfemod.f_cfe(
+    surfg=(9.3*u.M_sun/u.pc**2).to(u.kg/u.m**2).value, qt=2.0,
+    omega=(0.026/u.Myr).to(u.s**-1).value,
+)
+# if either of these fail, it indicates that the code was not properly compiled
+assert np.abs(result1 - 138.797882) / 138.797 < 0.01
+assert np.abs(result[0]*100 - 6.70294094) / 6.702 < 0.01
+
 cfes = np.zeros(nmc)
 fbound = np.zeros(nmc)
 fcce = np.zeros(nmc)
+
 
 
 if os.path.exists("cfe_global_table.txt"):
@@ -46,7 +63,7 @@ else:
                                 gmcsurfdens=surfGMC_arr[ii],
                                 sfemax=0.5,
                                 beta0=beta0_arr[ii],
-            ))
+            )+"\n")
 
         rslt = cfeglobal.cfemod.f_cfe(surfg_arr[ii],
                                       qT_arr[ii],

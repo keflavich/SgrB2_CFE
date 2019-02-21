@@ -27,10 +27,9 @@ Mach_number_local = sigma_arr / cs_arr
 shutil.copy('cfemodel/parameters.in','.')
 
 # sanity check
-print(cfelocal.cfelocalmod.f_cfelocal((0.03*u.M_sun/u.pc**3).to(u.kg/u.m**3).value,
-                                      7000,
-                                      200))
-print("The first number above should be {0}".format(8.827569))
+result = cfelocal.cfelocalmod.f_cfelocal((0.03*u.M_sun/u.pc**3).to(u.kg/u.m**3).value,
+                                         7000, 200)
+assert np.abs(result[0]*100 - 8.827569) / 8.827569 < 0.01
 # END test code
 
 if os.path.exists("cfe_local_table.txt"):

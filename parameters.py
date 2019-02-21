@@ -2,7 +2,6 @@ import numpy as np
 from astropy import units as u
 from astropy import constants
 
-from cfemodel import cfeglobal
 
 nmc = 100000
 
