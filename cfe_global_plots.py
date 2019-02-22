@@ -42,6 +42,7 @@ fcce = np.zeros(nmc)
 if os.path.exists("cfe_global_table.txt"):
     tbl = Table.read("cfe_global_table.txt", format='ascii.csv')
     fbound = tbl['fbound']
+    surfg_arr = tbl['surfg']
 
 else:
 
@@ -118,18 +119,20 @@ if __name__ == "__main__":
     # this is to enable a (theoretical) sanity check because of a heisenbug
     # that has cropped up dozens of times in which the global data become
     # uncorrelated in the surfg-fbound axis, which is not correct.
+    #
+    # however, because we need to plot in log space, this isn't right.
     data = np.log10(np.array([(surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value, fbound]))
     cov = np.cov(data)
     var = np.diag(cov)
     rot = cov/var
-    mn = np.mean(data, axis=1)
+    mn = 10**np.mean(data, axis=1)
 
     vecs = [[-1,0],
             [ 1,0],
             [ 0,-1],
             [ 0, 1],]
     vecs = np.array(vecs)# * var**0.5
-    rotvec = np.dot(cov/var**0.5, np.transpose(vecs))
+    rotvec = np.dot(cov/var * 10**(var**0.5), np.transpose(vecs))
     lines = rotvec.T + mn
 
     angle = (np.arctan2(cov[0,0], cov[0,1])*u.rad).to(u.deg)

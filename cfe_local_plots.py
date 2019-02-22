@@ -35,6 +35,7 @@ assert np.abs(result[0]*100 - 8.827569) / 8.827569 < 0.01
 if os.path.exists("cfe_local_table.txt"):
     tbl = Table.read("cfe_local_table.txt", format='ascii.csv')
     fbound = tbl['fbound']
+    surfg_arr = tbl['surfg']
 
 else:
 
@@ -90,3 +91,16 @@ else:
     tbl = Table(data=[sigma_arr, surfg_arr, fbound], names=['sigma','surfg','fbound'])
 
     tbl.write("cfe_local_table.txt", format='ascii.csv')
+
+if __name__ == "__main__":
+
+    from mpl_plot_templates import adaptive_param_plot
+    import pylab as pl
+    pl.clf()
+
+    bins = np.array([np.logspace(1.5,4,15), np.logspace(0.5,2,15)])
+    rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
+                               fbound, marker='none',
+                               bins=bins,
+                               percentilelevels=[0.05, 0.32],
+                              )
