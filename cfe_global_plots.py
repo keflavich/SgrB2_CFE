@@ -7,6 +7,7 @@ from astropy import units as u
 from astropy import constants
 from astropy import table
 from astropy.table import Table
+import textwrap
 import shutil
 
 from cfemodel import cfeglobal
@@ -48,7 +49,8 @@ else:
         # we write the parameters to file for each call, since the fortran code
         # reads these parameters from file
         with open('parameters.in', 'w') as fh:
-            fh.write("""
+            fh.write(
+                textwrap.dedent("""
     0                star formation law
     {qvir}              GMC virial parameter
     {tsn}                time of first SN (Myr)
@@ -63,7 +65,7 @@ else:
                                 gmcsurfdens=surfGMC_arr[ii],
                                 sfemax=0.5,
                                 beta0=beta0_arr[ii],
-            )+"\n")
+            )+"\n"))
 
         rslt = cfeglobal.cfemod.f_cfe(surfg_arr[ii],
                                       qT_arr[ii],
@@ -93,7 +95,8 @@ else:
 
     print('fcce: %.2f+%.2f-%.2f' % (np.around(fcce_median,2),np.around(fcce_errmax,2),np.around(fcce_errmin,2)))
 
-    tbl = table.Table(data=[sigma_arr, surfg_arr, fbound], names=['sigma','surfg','fbound'])
+    tbl = table.Table(data=[sigma_arr, surfg_arr, fbound],
+                      names=['sigma','surfg','fbound'])
 
     tbl.write("cfe_global_table.txt", format='ascii.csv')
 
@@ -101,6 +104,8 @@ else:
 if __name__ == "__main__":
 
     from mpl_plot_templates import adaptive_param_plot
+    import pylab as pl
+    pl.clf()
 
     bins = np.array([np.logspace(1.5,4,15), np.logspace(0.5,2,15)])
     rslt = adaptive_param_plot((surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value,
@@ -108,3 +113,27 @@ if __name__ == "__main__":
                                bins=bins,
                                percentilelevels=[0.05, 0.32],
                               )
+
+    # attempt to plot covariance
+    # this is to enable a (theoretical) sanity check because of a heisenbug
+    # that has cropped up dozens of times in which the global data become
+    # uncorrelated in the surfg-fbound axis, which is not correct.
+    data = np.log10(np.array([(surfg_arr*u.kg/u.m**2).to(u.M_sun/u.pc**2).value, fbound]))
+    cov = np.cov(data)
+    var = np.diag(cov)
+    rot = cov/var
+    mn = np.mean(data, axis=1)
+
+    vecs = [[-1,0],
+            [ 1,0],
+            [ 0,-1],
+            [ 0, 1],]
+    vecs = np.array(vecs)# * var**0.5
+    rotvec = np.dot(cov/var**0.5, np.transpose(vecs))
+    lines = rotvec.T + mn
+
+    angle = (np.arctan2(cov[0,0], cov[0,1])*u.rad).to(u.deg)
+    print("rotation angle of fit to data",angle)
+
+    pl.plot(lines.T[0,:2], lines.T[1,:2])
+    pl.plot(lines.T[0,2:], lines.T[1,2:])
