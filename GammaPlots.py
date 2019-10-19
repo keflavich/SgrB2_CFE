@@ -316,3 +316,4 @@ ax3.set_ylabel("$\Gamma$ (percent)", fontsize=18)
 fig4.subplots_adjust(wspace=0)
 
 fig4.savefig('GammaVsEverything_3panel.pdf', bbox_inches='tight')
+fig4.savefig('GammaVsEverything_3panel.svg', bbox_inches='tight')
